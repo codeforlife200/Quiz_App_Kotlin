@@ -15,7 +15,11 @@ class Result : AppCompatActivity() {
         val score=intent.getStringExtra(setData.score)
         val totalQuestion=intent.getStringExtra("total size")
 
-        congo.text="Congratulations ${userName} !!"
+        if(score.equals(totalQuestion))
+            congo.text="Congratulations ${userName} !!"
+        else
+            congo.text="Try Again ${userName}"
+
         Score.text="${score} / ${totalQuestion}"
         button.setOnClickListener {
             startActivity(Intent(this,MainActivity::class.java))
