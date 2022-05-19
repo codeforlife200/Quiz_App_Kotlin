@@ -58,30 +58,34 @@ class QuestionActivity : AppCompatActivity() {
                     score++;
                 }
                 setColor(question.correct_ans,R.drawable.correct_question_option)
-                if(currentPosition==questionList!!.size)
-                    submit.text="FINISH"
-                else
-                    submit.text="Go to Next"
             }else{
-                currentPosition++
-                when{
-                    currentPosition<=questionList!!.size->{
-                        setQuestion()
-                    }
-                    else->{
-                       var intent= Intent(this,Result::class.java)
-                        intent.putExtra(setData.name,Name.toString())
-                        intent.putExtra(setData.score,score.toString())
-                        intent.putExtra("total size",questionList!!.size.toString())
-
-                        startActivity(intent)
-                        finish()
-                    }
-                }
+                // move towards next questions
+                nextQues()
             }
+            if(currentPosition==questionList!!.size)
+                submit.text="FINISH"
+            else
+                submit.text="Go to Next"
             selecedOption=0
         }
+    }
 
+    private fun nextQues() {
+        currentPosition++
+        when{
+            currentPosition<=questionList!!.size->{
+                setQuestion()
+            }
+            else->{
+                var intent= Intent(this,Result::class.java)
+                intent.putExtra(setData.name,Name.toString())
+                intent.putExtra(setData.score,score.toString())
+                intent.putExtra("total size",questionList!!.size.toString())
+
+                startActivity(intent)
+                finish()
+            }
+        }
     }
 
     fun setColor(opt:Int,color:Int){
